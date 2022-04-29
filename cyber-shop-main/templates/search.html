@@ -1,0 +1,69 @@
+{% extends 'base.html' %}
+
+{% block title %}Search {% endblock %}
+
+{% block content %}
+
+
+<style>
+    .col-md-3 {
+        display: inline-block;
+        flex: 1 0 24%;
+        max-width: 109%
+    }
+
+    .col-md-3 img {
+        object-fit: contain;
+        height: 200px;
+
+    }
+
+    body .no-padding {
+        padding-left: 0;
+        padding-right: 0;
+    }
+</style>
+
+<div class="container">
+    <div class="row">
+        <div class="col-md-12">
+            <h3 style="margin-top: revert;">Search Results for <span class="text-info">"{{request.GET.keyword}}"</span>
+            </h3>
+            <hr>
+            {% if results|length < 1 %} <p>No search results</p>
+                Your search query did not match any documents. <br>
+                Suggestions:
+                <ul>
+                    <li>Make sure that all words are spelled correctly.</li>
+                    <li>Try more general keywords.</li>
+                    <li> Try fewer keywords.</li>
+                    <li> Try different keywords.</li>
+                    </li>
+                </ul>
+                {% endif %}
+        </div>
+        <div>
+
+            <div class="row mt-3">
+                {% for result in results%}
+                <div class="col-xs-3 col-sm-3 col-md-3">
+                    <div class="m-3">
+                        <a href="{% url 'cybershop:productdetail' result.slug %}"><img src="{{result.image.url}}" alt=""
+                                class="card-img-top"></a>
+                        <h4 style="text-align: center;"><a href="{% url 'cybershop:productdetail' result.slug %}"
+                                class="card-title">{{result.title}}</a>
+                        </h4>
+                        <p class="class-title" style="text-align: center;">Price: <strike>Rs.
+                                {{result.marked_price}}</strike> Rs.
+                            {{result.selling_price}}</p>
+                        <a href="{% url 'cybershop:addtocart' result.id %}" class="btn btn-primary"
+                            style="margin-left: 57px">Add To Cart</a>
+                    </div>
+                </div>
+                {% endfor %}
+            </div>
+        </div>
+    </div>
+
+
+    {% endblock %}

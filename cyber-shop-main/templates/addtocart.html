@@ -1,0 +1,15 @@
+{% extends 'base.html' %}
+
+{% block title %}Add to cart{% endblock %}
+
+{% block content %}
+<div class="container">
+    <h3 style="margin-top: revert;">Product added to cart successfully. </h3>
+    <div class="row justify-content-center" role="group" aria-label="Basic outlined example" style="margin-top: 55px;">
+        <a href="{% url 'cybershop:home' %}"><button type="button" class="btn btn-outline-primary">Buy More</button></a>
+        <a href="{% url 'cybershop:mycart' %}"><button type="button" class="btn btn-outline-primary">Go To Cart</button></a>
+        <a href="{% url 'cybershop:checkout' %}"><button type="button" class="btn btn-outline-primary">Checkout</button></a>
+    </div>
+</div>
+
+{% endblock %}

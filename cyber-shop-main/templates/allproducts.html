@@ -1,0 +1,51 @@
+{% extends 'base.html' %}
+
+{% block title %} All Products {% endblock %}
+
+{% block content %}
+
+<style>
+    .col-md-3 {
+        display: inline-block;
+        margin-left: -4px;
+    }
+
+    .col-md-3 img {
+        object-fit: contain;
+        height: 200px;
+    
+    }
+
+    body .no-padding {
+        padding-left: 0;
+        padding-right: 0;
+    }
+
+    body{
+        text-align: center;
+    }
+    h2{
+        text-align: justify;
+    }
+</style>
+
+
+
+<div class="container">
+    {% for cat in allcategories %}
+    <h2 style="margin-top: revert;">{{cat.title}}:-</h2><hr>
+    <div class="row mt-3">
+        {% for p in cat.product_set.all %}
+        <div class="col-xs-3 col-sm-3 col-md-3">
+            <div class="m-3">
+                <a href="{% url 'cybershop:productdetail' p.slug %}"><img src="{{p.image.url}}" alt="" class="card-img-top"></a>
+                <h4><a href="{% url 'cybershop:productdetail' p.slug %}" class="card-title">{{p.title}}</a></h4>
+                <p class="class-title">Price: <strike>Rs. {{p.marked_price}}</strike> Rs. {{p.selling_price}}</p>
+                <a href="{% url 'cybershop:addtocart' p.id %}" class="btn btn-primary">Add To Cart</a>
+            </div>
+        </div>
+        {% endfor %}
+    </div>
+    {% endfor %}
+</div>
+{% endblock %}
